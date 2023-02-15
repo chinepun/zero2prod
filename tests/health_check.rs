@@ -4,15 +4,21 @@ use std::{net::TcpListener, };
 use secrecy::ExposeSecret;
 use sqlx::{
     PgConnection, 
-    Connection, 
-    postgres::PgPoolOptions, 
+    Connection,
     PgPool, 
     Executor
 };
 use uuid::Uuid;
 use zero2prod::{
     startup::run, 
-    configuration::{self, get_configuration, DatabaseSettings}, telemetry::{get_subscriber, init_subscriber}
+    configuration::{
+        get_configuration, 
+        DatabaseSettings
+    }, 
+    telemetry::{
+        get_subscriber, 
+        init_subscriber
+    }
 };
 use reqwest::Client;
 use once_cell::sync::Lazy;

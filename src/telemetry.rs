@@ -25,10 +25,10 @@ where
     Sink: for<'a> MakeWriter<'a> + Send + Sync + 'static,
 {
     let env_filter = EnvFilter::try_from_default_env()
-    .unwrap_or_else(|_| EnvFilter::new("info"));
+        .unwrap_or_else(|_| EnvFilter::new(env_filter));
     let formatting_layer = BunyanFormattingLayer::new(
-        "zero2prod".into(),
-        std::io::stdout
+        name,
+        sink
     );
 
     Registry::default()
