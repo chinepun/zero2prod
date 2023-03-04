@@ -5,7 +5,7 @@ FROM rust:1.65.0-alpine AS builder
 # exist already.
 WORKDIR /app
 # Install the required system dependencies for our linking configuration
-RUN apk update && apk add lld clang
+RUN apk update && apk add --no-cache musl-dev && apk add lld clang
 # Copy all files from our working environment to our Docker image
 COPY . .
 # Let's build our binary!
@@ -16,6 +16,5 @@ ENV SQLX_OFFLINE true
 RUN cargo build --release --bin zero2prod
 # COPY --from=builder /app/target/zero2prod zero2prod
 # When `docker run` is executed, launch the binary!
-ENTRYPOINT ["./target/release/zero2prod"]
 # Build a docker image tagged as "zero2prod" according to the recipe
 # specified in `Dockerfile`
