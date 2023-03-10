@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=newsletter
     ports:
       - "5433:5432"
     healthcheck:
@@ -19,7 +19,7 @@ services:
 
   web:
     build: .
-    command: sh -c "./target/release/zero2prod"
+    command: cargo run
     volumes:
       - .:/app
     ports:

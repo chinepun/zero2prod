@@ -1,2 +1,6 @@
+.env
 target/
 Dockerfile
+tests/
+scripts/
+migrations/
