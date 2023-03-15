@@ -32,7 +32,8 @@ features = [
 ]
 
 [dependencies]
-tracing-actix-web = "0.5"
+tracing-actix-web = "0.7"
+serde-aux = "4"
 secrecy = { version = "0.8", features = ["serde"] }
 once_cell = "1"
 tracing-log = "0.1"
