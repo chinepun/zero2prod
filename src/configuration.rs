@@ -1,8 +1,8 @@
 // use config::Environment;
-use sqlx::ConnectOptions;
 use secrecy::{ExposeSecret, Secret};
 use serde_aux::field_attributes::deserialize_number_from_string;
 use sqlx::postgres::{PgConnectOptions, PgSslMode};
+use sqlx::ConnectOptions;
 // use sqlx::ConnectOptions;
 #[derive(serde::Deserialize)]
 pub struct Settings {
@@ -40,7 +40,6 @@ impl DatabaseSettings {
     //     options.log_statements(tracing::log::LevelFilter::Trace);
     //     options
     // }
-
 
     pub fn without_db(&self) -> PgConnectOptions {
         let ssl_mode = if self.require_ssl {
@@ -113,7 +112,7 @@ impl Environment {
     pub fn as_str(&self) -> &'static str {
         match self {
             Environment::Local => "local",
-            Environment::Production => "production"
+            Environment::Production => "production",
         }
     }
 }
@@ -125,7 +124,10 @@ impl TryFrom<String> for Environment {
         match s.to_lowercase().as_str() {
             "local" => Ok(Self::Local),
             "production" => Ok(Self::Production),
-            other => Err(format!("{} is not a supported environment. use either 'local' or production", other))
+            other => Err(format!(
+                "{} is not a supported environment. use either 'local' or production",
+                other
+            )),
         }
     }
 }
