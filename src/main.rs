@@ -1,8 +1,7 @@
-use secrecy::ExposeSecret;
+// use secrecy::ExposeSecret;
 use sqlx::postgres::PgPoolOptions;
 use std::net::TcpListener;
-// use secrecy::ExposeSecret;
-use sqlx::PgPool;
+// use sqlx::PgPool;
 use zero2prod::{
     configuration::get_configuration,
     startup::run,
