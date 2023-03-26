@@ -2,7 +2,7 @@
 
 use once_cell::sync::Lazy;
 use reqwest::Client;
-use secrecy::ExposeSecret;
+// use secrecy::ExposeSecret;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use std::net::TcpListener;
 use uuid::Uuid;
@@ -142,6 +142,35 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
             // Additional customised error message on test failure
             "The API did not fail with 400 Bad Request when the payload was {}.",
             error_message
+        );
+    }
+}
+
+#[tokio::test]
+async fn subscribe_returns_a_400_when_fields_are_present_but_empty() {
+    let app = spawn_app().await;
+    let client = reqwest::Client::new();
+
+    let test_cases = vec![
+        ("name=&email=ursala_le_guin%40gmail.com", "empty name"),
+        ("name=Ursala&email=", "empty email"),
+        ("name=Ursala&email=definitely-not-an-email", "invalid email"),
+    ];
+
+    for (body, description) in test_cases {
+        let response = client
+            .post(&format!("{}/subscriptions", &app.address))
+            .header("Content-Type", "application/x-www-form-urlencode")
+            .body(body)
+            .send()
+            .await
+            .expect("Failed to send request");
+
+        assert_eq!(
+            400,
+            response.status().as_u16(),
+            "The API did not return a 400 Bad request when the payload was {}",
+            description
         );
     }
 }

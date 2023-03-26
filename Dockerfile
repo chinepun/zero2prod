@@ -15,6 +15,7 @@ RUN cargo chef cook --release --recipe-path recipe.json
 COPY . .
 ENV SQLX_OFFLINE true
 # Build our project
+RUN cargo check
 RUN cargo build --release --bin zero2prod
 RUN cargo test
 FROM debian:bullseye-slim AS runtime
