@@ -1,9 +1,19 @@
-#[derive(Debug)]
+// use actix_web::cookie::Display;
+use serde::{Serialize, Deserialize};
+use core::fmt;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SubscriberEmail(String);
 
 impl AsRef<str> for SubscriberEmail {
     fn as_ref(&self) -> &str {
         &self.0
+    }
+}
+
+impl fmt::Display for SubscriberEmail {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[email => {}]", self.to_string())
     }
 }
 

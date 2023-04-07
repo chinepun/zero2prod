@@ -7,3 +7,9 @@ database:
   username: "postgres"
   password: "password"
   database_name: "newsletter"
+email_client:
+  base_url: "localhost"
+  sender_email: "postmaster@sandboxca40402592b34879ac42a56dcbcbdf52.mailgun.org"
+  username: "api"
+  password: "29c22e8825c39c9eebfbb682dada8921-d51642fa-8748a4b2"
+  timeout_milliseconds: 10000

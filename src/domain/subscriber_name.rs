@@ -1,6 +1,9 @@
-use unicode_segmentation::UnicodeSegmentation;
+use std::fmt;
 
-#[derive(Debug)]
+use unicode_segmentation::UnicodeSegmentation;
+use serde::{Serialize};
+
+#[derive(Debug, Serialize, serde::Deserialize)]
 pub struct SubscriberName(String);
 
 impl AsRef<str> for SubscriberName {
@@ -8,6 +11,13 @@ impl AsRef<str> for SubscriberName {
         &self.0
     }
 }
+
+impl fmt::Display for SubscriberName {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[name => {}]", self.to_string())
+    }
+}
+
 
 impl SubscriberName {
     /// Returns an instance of `SubscriberName` if the input satisfies all
